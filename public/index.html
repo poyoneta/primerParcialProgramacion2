@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gimnasio Forza Gym</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
 
     <header id="inicio">
-        <h1>Gimnasio Forza Gym</h1>
-        <p>Break Your Limits</p>
+        <div class="header-contenido">
+            <img src="imagenes/Forza logo.jpeg" alt="Logo Forza Gym" class="logo-header">
+            <div class="header-texto">
+                <h1>Gimnasio Forza Gym</h1>
+                <p>Break Your Limits</p>
+            </div>
+        </div>
     </header>
 
     <nav>
         <a href="#planes">Planes</a>
+        <a href="#actividades">Actividades</a>
         <a href="#horarios">Horarios</a>
         <a href="#entrenadores">Entrenadores</a>
         <a href="#inscripcion">Inscripción</a>
@@ -30,12 +37,59 @@
                 entrenadores profesionales y horarios flexibles.
             </p>
 
-            <img src="imagenes/hombre haciendo biceps.jpg"
-                 alt="Persona entrenando">
+            </section>
 
-            <button id="botonColor">
-                Cambiar color de fondo
-            </button>
+        <section id="actividades">
+            <h2>Nuestras Actividades</h2>
+            
+            <div class="contenedor-actividades">
+                
+                <article class="tarjeta-actividad">
+                    <div class="imagen-actividad">
+                        <img src="imagenes/crossfit.jpg" alt="Crossfit">
+                    </div>
+                    <div class="barra-actividad">
+                        <span>🏋️‍♂️ CROSSFIT</span>
+                    </div>
+                </article>
+
+                <article class="tarjeta-actividad">
+                    <div class="imagen-actividad">
+                        <img src="imagenes/funcional.jpg" alt="Funcional">
+                    </div>
+                    <div class="barra-actividad">
+                        <span>💪 FUNCIONAL</span>
+                    </div>
+                </article>
+
+                <article class="tarjeta-actividad">
+                    <div class="imagen-actividad">
+                        <img src="imagenes/gap.jpg" alt="GAP">
+                    </div>
+                    <div class="barra-actividad">
+                        <span>🔥 GAP</span>
+                    </div>
+                </article>
+
+                <article class="tarjeta-actividad">
+                    <div class="imagen-actividad">
+                        <img src="imagenes/musculacion.jfif" alt="Musculación">
+                    </div>
+                    <div class="barra-actividad">
+                        <span>🏋️ MUSCULACIÓN</span>
+                    </div>
+                </article>
+
+                <article class="tarjeta-actividad">
+                    <div class="imagen-actividad">
+                        <img src="imagenes/boxeo.jpg" alt="Boxeo">
+                    </div>
+                    <div class="barra-actividad">
+                        <span>🥊 BOXEO</span>
+                    </div>
+                </article>
+
+            </div>
         </section>
 
         <section id="planes">
@@ -70,8 +124,34 @@
 
             <h2>Horarios</h2>
 
-            <p>Lunes a viernes: 8:00 a 22:00 hs</p>
-            <p>Sábados: 10:30 a 12:00 hs</p>
+            <div class="contenedor-horarios">
+
+                <article class="tarjeta-horario">
+                    <div class="etiqueta-dia">Lunes a Viernes</div>
+                    
+                    <div class="bloque-turno">
+                        <h3>Por la mañana</h3>
+                        <p class="hora">8:00 a 12:00</p>
+                    </div>
+                    
+                    <div class="divisor-horario"></div>
+                    
+                    <div class="bloque-turno">
+                        <h3>Por la tarde</h3>
+                        <p class="hora">16:00 a 22:30</p>
+                    </div>
+                </article>
+
+                <article class="tarjeta-horario">
+                    <div class="etiqueta-dia">Sábado</div>
+                    
+                    <div class="bloque-turno">
+                        <h3>Por la mañana</h3>
+                        <p class="hora">10:30 a 12:30</p>
+                    </div>
+                </article>
+
+            </div>
 
         </section>
 
@@ -112,6 +192,7 @@
                     type="text"
                     id="nombre"
                     placeholder="Ingresá tu nombre"
+                    required
                 >
 
                 <label for="email">
@@ -122,16 +203,19 @@
                     type="email"
                     id="email"
                     placeholder="Ingresá tu email"
+                    required
                 >
 
-                <label for="plan">
-                    Plan elegido
+                <label for="actividad">
+                    Actividad elegida
                 </label>
 
                 <select id="plan">
-                    <option>Plan Básico</option>
-                    <option>Plan Plus</option>
-                    <option>Plan Premium</option>
+                    <option value="Crossfit">Crossfit</option>
+                    <option value="Funcional">Funcional</option>
+                    <option value="GAP">GAP</option>
+                    <option value="Musculación">Musculación</option>
+                    <option value="Boxeo">Boxeo</option>
                 </select>
 
                 <label for="mensaje">
@@ -164,13 +248,22 @@
     </main>
 
     <footer>
+        <div class="redes-sociales">
+            <!-- WhatsApp -->
+            <a href="#" target="_blank" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <!-- Instagram -->
+            <a href="" target="_blank" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <!-- Facebook -->
+            <a href="#" target="_blank" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+        </div>
+        
         <p>
-            &copy; 2026 Gimnasio Forza Gym -
-            Todos los derechos reservados
+            &copy; 2026 Gimnasio Forza Gym - Todos los derechos reservados
         </p>
     </footer>
-
-    <script src="script.js"></script>
-
-</body>
-</html>
