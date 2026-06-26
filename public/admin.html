@@ -274,12 +274,12 @@
                 }
 
                 totalSocios.textContent = socios.length;
-                ultimoSocio.textContent = socios[socios.length - 1].nombre || socios[socios.length - 1].Nombre;
+                ultimoSocio.textContent = socios[socios.length - 1].Nombre || socios[socios.length - 1].nombre || "N/A";
 
                 tbody.innerHTML = '';
 
                 socios.forEach(socio => {
-                    const fechaRaw = socio.fechaInscripcion || socio.FechaInscripcion;
+                    const fechaRaw = socio.FechaInscripcion || socio.fechaInscripcion;
                     const fechaInscripcion = new Date(fechaRaw || new Date());
                     
                     const fechaVencimiento = new Date(fechaInscripcion);
@@ -308,15 +308,18 @@
                     }
 
                     const idSocio = socio.Id !== undefined ? socio.Id : (socio.id !== undefined ? socio.id : 'N/A');
-                    const nombreSocio = socio.nombre || socio.Nombre || 'Sin nombre';
-                    const emailSocio = socio.email || socio.Email || 'Sin email';
-                    const telefonoSocio = socio.telefono || socio.Telefono || 'Sin teléfono';
-                    const planSocio = socio.planElegido || socio.PlanElegido || 'Sin plan';
-                    const mensajeSocio = socio.mensaje || socio.Mensaje || '<em>Sin mensaje</em>';
+                    const nombreSocio = socio.Nombre || socio.nombre || 'Sin nombre';
+                    const emailSocio = socio.Email || socio.email || 'Sin email';
+                    
+                    // ✨ CORRECCIÓN CLAVE: Forzamos la lectura con T Mayúscula que viene de SQL Server
+                    const telefonoSocio = socio.Telefono || socio.telefono || 'Sin teléfono';
+                    
+                    const planSocio = socio.PlanElegido || socio.planElegido || 'Sin plan';
+                    const mensajeSocio = socio.Mensaje || socio.mensaje || '<em>Sin mensaje</em>';
 
                     tbody.innerHTML += `
                         <tr style="${bordeFila}">
-                            <td><strong>#${idSocio !== null && idSocio !== undefined ? idSocio : 'N/A'}</strong></td>
+                            <td><strong>#${idSocio}</strong></td>
                             <td>${nombreSocio}</td>
                             <td>${emailSocio}</td>
                             <td><a href="tel:${telefonoSocio}" style="color: #39e4a5; text-decoration: none; font-weight: bold;"><i class="fa-solid fa-phone" style="font-size: 0.8rem;"></i> ${telefonoSocio}</a></td>

@@ -44,28 +44,26 @@ document
 .addEventListener("click",
 async () => {
 
-    const respuesta =
-        await fetch("/api/socios");
+    const respuesta = await fetch("/api/socios");
+    const socios = await respuesta.json();
 
-    const socios =
-        await respuesta.json();
+    // 🕵️‍♂️ ESTO ES CLAVE: Mirá la consola del navegador (F12) para ver cómo llega el objeto
+    console.log("Socios recibidos desde el backend:", socios);
 
-    const lista =
-        document.getElementById("lista");
+    const lista = document.getElementById("lista");
 
     if (lista) { 
         lista.innerHTML = "";
 
         socios.forEach(socio => {
-            // Se asume que la propiedad que viene de la base de datos se llama "Telefono"
-            // Si viene nulo o vacío, muestra "Sin teléfono"
-            const telMostrado = socio.Telefono ? socio.Telefono : "Sin teléfono";
+            // Evaluamos todas las variantes posibles por si las dudas
+            const telMostrado = socio.Telefono || socio.telefono || "Sin teléfono";
 
             lista.innerHTML += `
                 <p>
-                    <strong>${socio.Nombre}</strong> 
-                    - ${socio.PlanElegido} 
-                    - 📞 ${telMostrado}
+                    <strong>${socio.Nombre || socio.nombre}</strong> 
+                    - Plan: ${socio.PlanElegido || socio.planElegido} 
+                    - 📞 Tel: ${telMostrado}
                 </p>
             `;
         });

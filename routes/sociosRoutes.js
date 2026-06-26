@@ -30,7 +30,7 @@ router.post("/notificaciones/limpiar", (req, res) => {
     res.json({ success: true, message: "Notificaciones limpiadas" });
 });
 
-// 2. RUTA GET: Traer todos los socios
+// 2. RUTA GET: Traer todos los socios (CORREGIDO: Ahora incluye teléfono)
 router.get("/", async (req, res) => {
     try {
         let pool = await sql.connect(config);
@@ -40,6 +40,8 @@ router.get("/", async (req, res) => {
             id: socio.Id,
             nombre: socio.Nombre,
             email: socio.Email,
+            // ✨ SE AGREGA EL TELÉFONO AL MAPEO (Soporta mayúscula y minúscula desde SQL Server)
+            telefono: socio.Telefono || socio.telefono || "Sin teléfono",
             planElegido: socio.PlanElegido,
             mensaje: socio.Mensaje,
             fechaInscripcion: socio.FechaInscripcion
@@ -52,10 +54,12 @@ router.get("/", async (req, res) => {
     }
 });
 
-// 3. RUTA POST: Guardar un nuevo socio e inyectar la notificación
+// 3. RUTA POST: Guardar un nuevo socio (CORREGIDO: Ahora guarda el teléfono)
 router.post("/", async (req, res) => {
     const nombre = req.body.nombre || req.body.Nombre;
     const email = req.body.email || req.body.Email;
+    // ✨ SE CAPTURA EL TELÉFONO QUE VIENE DEL FORMULARIO
+    const telefono = req.body.telefono || req.body.Telefono;
     const planElegido = req.body.planElegido || req.body.PlanElegido;
     const mensaje = req.body.mensaje || req.body.Mensaje;
 
@@ -66,12 +70,14 @@ router.post("/", async (req, res) => {
     try {
         let pool = await sql.connect(config);
         
+        // ✨ SE AGREGA EL PARÁMETRO Y LA COLUMNA DE TELÉFONO AL INSERT
         await pool.request()
             .input("Nombre", sql.NVarChar(100), nombre)
             .input("Email", sql.NVarChar(100), email)
+            .input("Telefono", sql.NVarChar(50), telefono || null) 
             .input("PlanElegido", sql.NVarChar(50), planElegido)
             .input("Mensaje", sql.NVarChar(500), mensaje || null)
-            .query("INSERT INTO Socios (Nombre, Email, PlanElegido, Mensaje, FechaInscripcion) VALUES (@Nombre, @Email, @PlanElegido, @Mensaje, GETDATE())");
+            .query("INSERT INTO Socios (Nombre, Email, Telefono, PlanElegido, Mensaje, FechaInscripcion) VALUES (@Nombre, @Email, @Telefono, @PlanElegido, @Mensaje, GETDATE())");
 
         // 📢 AGREGAMOS LA NOTIFICACIÓN AL ARREGLO
         notificaciones.unshift({
